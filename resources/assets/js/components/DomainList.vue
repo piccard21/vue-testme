@@ -131,7 +131,9 @@
 			},
 			fetchData() {
 				this.loading = true
-				$(".mugen-height ").busyLoad("show");
+				$(".mugen-height ").busyLoad("show", {
+					background: '#ecf5ff'
+				});
 				setTimeout(() => {
 					this.loading = false
 					$(".mugen-height ").busyLoad("hide");

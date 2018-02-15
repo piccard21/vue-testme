@@ -96356,7 +96356,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this4 = this;
 
 			this.loading = true;
-			$(".mugen-height ").busyLoad("show");
+			$(".mugen-height ").busyLoad("show", {
+				background: '#ecf5ff'
+			});
 			setTimeout(function () {
 				_this4.loading = false;
 				$(".mugen-height ").busyLoad("hide");
@@ -97506,7 +97508,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -97518,10 +97520,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_HandleResult__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_GetDomainList__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_GetDomainList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__mixins_GetDomainList__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_LaRoute__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_IxEvent__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_LaRoute__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_IxEvent__ = __webpack_require__(8);
 //
 //
 //
@@ -97550,7 +97550,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 
 
@@ -97558,7 +97557,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_HandleResult__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_LaRoute__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__mixins_IxEvent__["a" /* default */]],
+	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_HandleResult__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_LaRoute__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_IxEvent__["a" /* default */]],
 	data: function data() {
 		return {
 			checkAll: true,
@@ -97596,9 +97595,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					tlds: tlds
 				}
 			}).then(function (response) {
-				console.info(response.data);
 				$.busyLoadFull("hide");
-				__WEBPACK_IMPORTED_MODULE_3__mixins_IxEvent__["a" /* default */].fire('domain-list-changed', response.data.data);
+				__WEBPACK_IMPORTED_MODULE_2__mixins_IxEvent__["a" /* default */].fire('domain-list-changed', response.data.data);
 			});
 		}
 	},
@@ -97614,34 +97612,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 304 */
-/***/ (function(module, exports) {
-
-
-// import HandleResult from '../mixins/HandleResult';
-
-// export default {
-// 	mixins: [HandleResult],
-// 	methods: {
-// 		getDomainList(tlds) {
-// 			$.busyLoadFull("show");
-// 			axios({
-// 				method: 'post',
-// 				url: laroute.route('customer.filter'),
-// 				data: {
-// 					tlds: tlds
-// 				}
-// 			}).then((response) => { 
-// 				console.info(response.data);
-// 				$.busyLoadFull("hide");
-// 				// this.handleResult(response);
-// 				}
-// 			)
-// 		}
-// 	}
-// }
-
-/***/ }),
+/* 304 */,
 /* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 

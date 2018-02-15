@@ -28,8 +28,7 @@
 
 <script>
 
-	import HandleResult from '../mixins/HandleResult';
-	import GetDomainList from '../mixins/GetDomainList';
+	import HandleResult from '../mixins/HandleResult'; 
 	import LaRoute from '../mixins/LaRoute';
 	import IxEvent from '../mixins/IxEvent';
 
@@ -69,9 +68,8 @@
 						tlds: tlds
 					}
 				}).then((response) => { 
-					console.info(response.data); 
 					$.busyLoadFull("hide"); 
-					IxEvent.fire('domain-list-changed', response.data.data);
+						IxEvent.fire('domain-list-changed', response.data.data);
 					}
 				)
 			}

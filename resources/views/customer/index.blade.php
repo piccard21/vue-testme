@@ -28,6 +28,7 @@
 					<ix-domain-list></ix-domain-list>
 				</div>
 			</div>
+
 			{{--next-btn--}}
 			<div class="row">
 				<div class="col">
