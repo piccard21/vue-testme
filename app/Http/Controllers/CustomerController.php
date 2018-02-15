@@ -42,8 +42,21 @@ class CustomerController extends Controller {
 	}
 
 	public function getFilteredDomainList(Request $request) {
+
+		$this->validate($request, [
+			'tlds' => 'array',
+		]);
+
 		$tlds = $request->input('tlds');
-		$ba = 1;
+
+		if (empty($tlds)) {
+			$result = [
+				'msg' => 'No tld selected',
+				'success' => true,
+				'data' => [],
+			];
+			return response()->json($result);
+		}
 
 		$customer = session('customer');
 
@@ -61,7 +74,7 @@ class CustomerController extends Controller {
 				}
 			})
 //			->offset(10)
-		//			->limit(env('DOMAIN_MAX_LIST', 10))
+			->limit(env('DOMAIN_MAX_LIST', 10))
 			->get();
 
 		$result = [

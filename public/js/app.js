@@ -96290,7 +96290,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 	mounted: function mounted() {
+		var _this = this;
+
 		this.hasSelection();
+		__WEBPACK_IMPORTED_MODULE_3__mixins_IxEvent__["a" /* default */].listen('domain-list-changed', function (domains) {
+			console.info(domains);
+			_this.tableData = domains;
+		});
 	},
 
 	methods: {
@@ -96304,7 +96310,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			__WEBPACK_IMPORTED_MODULE_3__mixins_IxEvent__["a" /* default */].fire('domain-selection-changed', hasSelection);
 		},
 		handleAdd: function handleAdd(index, row, domainId) {
-			var _this = this;
+			var _this2 = this;
 
 			$.busyLoadFull("show");
 			axios({
@@ -96316,12 +96322,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).then(function (response) {
 				$.busyLoadFull("hide");
 				row.status = 'selected';
-				_this.handleResult(response);
-				_this.hasSelection();
+				_this2.handleResult(response);
+				_this2.hasSelection();
 			});
 		},
 		handleDelete: function handleDelete(index, row, domainId) {
-			var _this2 = this;
+			var _this3 = this;
 
 			$.busyLoadFull("show");
 			axios({
@@ -96333,8 +96339,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}).then(function (response) {
 				$.busyLoadFull("hide");
 				row.status = 'open';
-				_this2.handleResult(response);
-				_this2.hasSelection();
+				_this3.handleResult(response);
+				_this3.hasSelection();
 			});
 		},
 		tableRowClassName: function tableRowClassName(_ref) {
@@ -96347,12 +96353,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return '';
 		},
 		fetchData: function fetchData() {
-			var _this3 = this;
+			var _this4 = this;
 
 			this.loading = true;
 			$(".mugen-height ").busyLoad("show");
 			setTimeout(function () {
-				_this3.loading = false;
+				_this4.loading = false;
 				$(".mugen-height ").busyLoad("hide");
 			}, 500);
 		}
@@ -96554,7 +96560,7 @@ var render = function() {
         },
         [
           _c("el-table-column", {
-            attrs: { label: "Name", width: "180" },
+            attrs: { label: "Name" },
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -96581,7 +96587,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("el-table-column", {
-            attrs: { label: "Price" },
+            attrs: { label: "Price", width: "180" },
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -97500,7 +97506,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -97511,8 +97517,11 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_GetDomainList__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_LaRoute__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_HandleResult__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_GetDomainList__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_GetDomainList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__mixins_GetDomainList__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_LaRoute__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_IxEvent__ = __webpack_require__(8);
 //
 //
 //
@@ -97541,16 +97550,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_GetDomainList__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_LaRoute__["a" /* default */]],
+	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_HandleResult__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_LaRoute__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__mixins_IxEvent__["a" /* default */]],
 	data: function data() {
 		return {
-			checkAll: false,
+			checkAll: true,
 			checkedTlds: [],
 			tlds: [],
 			isIndeterminate: true,
@@ -97567,15 +97578,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		handleCheckAllChange: function handleCheckAllChange(val) {
 			this.checkedTlds = val ? this.tldOptions : [];
 			this.isIndeterminate = false;
-			// this.queryDomains(this.getDomainList);
+			this.queryDomains(this.getDomainList, this.checkedTlds);
 		},
 		handleCheckedTldsChange: function handleCheckedTldsChange(value) {
 			var checkedCount = value.length;
 			this.checkAll = checkedCount === this.tlds.length;
 			this.isIndeterminate = checkedCount > 0 && checkedCount < this.tlds.length;
-			// this.queryDomains(this.getDomainList, this.checkedTlds);
+			this.queryDomains(this.getDomainList, this.checkedTlds);
 		},
-		handleChange: function handleChange(val) {}
+		handleChange: function handleChange(val) {},
+		getDomainList: function getDomainList(tlds) {
+			$.busyLoadFull("show");
+			axios({
+				method: 'post',
+				url: laroute.route('customer.filter'),
+				data: {
+					tlds: tlds
+				}
+			}).then(function (response) {
+				console.info(response.data);
+				$.busyLoadFull("hide");
+				__WEBPACK_IMPORTED_MODULE_3__mixins_IxEvent__["a" /* default */].fire('domain-list-changed', response.data.data);
+			});
+		}
 	},
 	computed: {
 		tldOptions: function tldOptions() {
@@ -97590,32 +97615,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 304 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_HandleResult__ = __webpack_require__(23);
+/***/ (function(module, exports) {
 
 
+// import HandleResult from '../mixins/HandleResult';
 
-/* harmony default export */ __webpack_exports__["a"] = ({
-	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_HandleResult__["a" /* default */]],
-	methods: {
-		getDomainList: function getDomainList(tlds) {
-			$.busyLoadFull("show");
-			axios({
-				method: 'post',
-				url: laroute.route('customer.filter'),
-				data: {
-					tlds: tlds
-				}
-			}).then(function (response) {
-				console.info(response.data);
-				$.busyLoadFull("hide");
-				// this.handleResult(response);
-			});
-		}
-	}
-});
+// export default {
+// 	mixins: [HandleResult],
+// 	methods: {
+// 		getDomainList(tlds) {
+// 			$.busyLoadFull("show");
+// 			axios({
+// 				method: 'post',
+// 				url: laroute.route('customer.filter'),
+// 				data: {
+// 					tlds: tlds
+// 				}
+// 			}).then((response) => { 
+// 				console.info(response.data);
+// 				$.busyLoadFull("hide");
+// 				// this.handleResult(response);
+// 				}
+// 			)
+// 		}
+// 	}
+// }
 
 /***/ }),
 /* 305 */

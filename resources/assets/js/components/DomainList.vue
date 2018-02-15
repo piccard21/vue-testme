@@ -1,13 +1,12 @@
 <template>
-	<div class="wrap" style="height: 200px; overflow: auto;" ref="wrap">
+	<div class="wrap" style="height: 200px; overflow: auto;" ref="wrap"> 
 		<el-table
 				:data="tableData"
 				:row-class-name="tableRowClassName">
 
 			<!--domain-name-->
 			<el-table-column
-					label="Name"
-					width="180">
+					label="Name">
 				<template slot-scope="scope">
 					<div slot="reference" class="name-wrapper">
 						<el-tag size="medium">{{ scope.row.name }}</el-tag>
@@ -17,7 +16,8 @@
 
 			<!--price-->
 			<el-table-column
-					label="Price">
+					label="Price"
+					width="180">
 				<template slot-scope="scope">
 					<span style="margin-left: 10px">{{ scope.row.price }}</span>
 					<i class="fa fa-eur"></i>
@@ -75,7 +75,11 @@
 			}
 		},
 		mounted() {
-			this.hasSelection();
+			this.hasSelection(); 
+			IxEvent.listen('domain-list-changed', (domains) => {
+				console.info(domains);
+				this.tableData = domains;
+			}); 
 		},
 		methods: {
 			hasSelection() {

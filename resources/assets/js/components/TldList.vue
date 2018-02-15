@@ -28,14 +28,16 @@
 
 <script>
 
+	import HandleResult from '../mixins/HandleResult';
 	import GetDomainList from '../mixins/GetDomainList';
 	import LaRoute from '../mixins/LaRoute';
+	import IxEvent from '../mixins/IxEvent';
 
 	export default {
-		mixins: [GetDomainList, LaRoute],
+		mixins: [HandleResult, LaRoute, IxEvent],
 		data() {
 			return {
-				checkAll: false,
+				checkAll: true,
 				checkedTlds: [],
 				tlds: [],
 				isIndeterminate: true,
@@ -49,15 +51,30 @@
 			handleCheckAllChange(val) {
 				this.checkedTlds = val ? this.tldOptions : [];
 				this.isIndeterminate = false;
-				// this.queryDomains(this.getDomainList);
+				this.queryDomains(this.getDomainList, this.checkedTlds);
 			},
 			handleCheckedTldsChange(value) {
 				let checkedCount = value.length;
 				this.checkAll = checkedCount === this.tlds.length;
 				this.isIndeterminate = checkedCount > 0 && checkedCount < this.tlds.length;
-				// this.queryDomains(this.getDomainList, this.checkedTlds);
+				this.queryDomains(this.getDomainList, this.checkedTlds);
 			},
-			handleChange(val) {}
+			handleChange(val) {},
+			getDomainList(tlds) {
+				$.busyLoadFull("show");
+				axios({
+					method: 'post',
+					url: laroute.route('customer.filter'),
+					data: {
+						tlds: tlds
+					}
+				}).then((response) => { 
+					console.info(response.data); 
+					$.busyLoadFull("hide"); 
+					IxEvent.fire('domain-list-changed', response.data.data);
+					}
+				)
+			}
 		},
 		computed: {
 			tldOptions() {
