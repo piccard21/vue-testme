@@ -97585,7 +97585,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.isIndeterminate = checkedCount > 0 && checkedCount < this.tlds.length;
 			this.queryDomains(this.getDomainList, this.checkedTlds);
 		},
-		handleChange: function handleChange(val) {},
+		toggleAccordion: function toggleAccordion(val) {},
 		getDomainList: function getDomainList(tlds) {
 			$.busyLoadFull("show");
 			axios({
@@ -97628,7 +97628,7 @@ var render = function() {
         "el-collapse",
         {
           attrs: { accordion: "" },
-          on: { change: _vm.handleChange },
+          on: { change: _vm.toggleAccordion },
           model: {
             value: _vm.activeName,
             callback: function($$v) {

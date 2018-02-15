@@ -1,7 +1,7 @@
 <template>
 	<div>
 		{{checkedTlds}}
-		<el-collapse v-model="activeName" @change="handleChange" accordion>
+		<el-collapse v-model="activeName" @change="toggleAccordion" accordion>
 			<el-collapse-item title="Tlds" name="1">
 
 				<el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">
@@ -58,7 +58,7 @@
 				this.isIndeterminate = checkedCount > 0 && checkedCount < this.tlds.length;
 				this.queryDomains(this.getDomainList, this.checkedTlds);
 			},
-			handleChange(val) {},
+			toggleAccordion(val) {},
 			getDomainList(tlds) {
 				$.busyLoadFull("show");
 				axios({
