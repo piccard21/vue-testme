@@ -45,9 +45,11 @@ class CustomerController extends Controller {
 
 		$this->validate($request, [
 			'tlds' => 'array',
+			'search' => 'string',
 		]);
 
 		$tlds = $request->input('tlds');
+		$search = $request->input('search');
 
 		if (empty($tlds)) {
 			$result = [
@@ -65,22 +67,23 @@ class CustomerController extends Controller {
 			abort(Response::HTTP_EXPECTATION_FAILED);
 		}
 
-		// https://itsolutionstuff.com/post/laravel-5-wherein-and-wherenotin-with-subquery-example-using-query-builderexample.html
-		$domainList = $customer->domains()
-			->where(function ($query) use ($tlds) {
-				foreach ($tlds as $tld) {
-					$query->from('domains')
-						->orWhere('name', 'like', '%' . $tld);
-				}
-			})
-//			->offset(10)
-			->limit(env('DOMAIN_MAX_LIST', 10))
-			->get();
+		$domainList = $customer->domains();
+
+		if (!empty($search)) {
+			$domainList->where('name', 'like', '%' . $search . '%');
+		}
+
+		$domainList->where(function ($query) use ($tlds) {
+			foreach ($tlds as $tld) {
+				$query->from('domains')
+					->orWhere('name', 'like', '%' . $tld);
+			}
+		})->limit(env('DOMAIN_MAX_LIST', 10));
 
 		$result = [
 			'msg' => 'Domains filtered successfully',
 			'success' => true,
-			'data' => $domainList,
+			'data' => $domainList->get(),
 		];
 
 		return response()->json($result);
