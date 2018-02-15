@@ -18,6 +18,7 @@ import 'busy-load';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import locale from 'element-ui/lib/locale/lang/en';
+import { store } from './store';
 
 Vue.use(ElementUI, {locale});
 
@@ -35,6 +36,7 @@ Vue.component('ix-steps', require('./components/Steps.vue'));
 
 $(document).ready(function() {
 	const app = new Vue({
-		el: '#app'
+		el: '#app',
+    	store,
 	});
 })

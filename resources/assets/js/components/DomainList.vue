@@ -67,19 +67,25 @@
 		components: {
 			MugenScroll
 		},
-		mixins: [HandleResult, LaRoute, Lang, IxEvent],
+		mixins: [HandleResult, LaRoute, Lang, IxEvent], 
+		computed: {
+			tableData() {
+				return this.$store.getters.domainList;
+			}
+		},
 		data() {
 			return {
-				tableData: internetx.domainList,
+				// tableData: this.$store.getters.domainList,
+				// tableData: internetx.domainList,
 				loading: false
 			}
 		},
 		mounted() {
 			this.hasSelection(); 
-			IxEvent.listen('domain-list-changed', (domains) => {
-				console.info(domains);
-				this.tableData = domains;
-			}); 
+			// IxEvent.listen('domain-list-changed', (domains) => {
+			// 	console.info(domains);
+			// 	this.tableData = domains;
+			// }); 
 		},
 		methods: {
 			hasSelection() {

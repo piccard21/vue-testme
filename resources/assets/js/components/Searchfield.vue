@@ -12,15 +12,16 @@
 <script>
 	export default {
 		data() {
-			return {
+			return { 
 				searchVal: ''
 			}
 		},
 		methods: {
-			filterDomain(val) {
-				console.info(val);
+			filterDomain(text) {
+				this.$store.commit('setSearchText', text);
+				// console.info(this.$store.getters.searchText);
 			}
-		}
+		} 
 	}
 </script>
 

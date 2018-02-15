@@ -1,7 +1,7 @@
 <template>
 	<div>
 		{{checkedTlds}}
-		<el-collapse v-model="activeName" @change="toggleAccordion" accordion>
+		<el-collapse v-model="activeName" @change="toggleAll" accordion>
 			<el-collapse-item title="Tlds" name="1">
 
 				<el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-
+	import { mapGetters } from 'vuex'
 	import HandleResult from '../mixins/HandleResult'; 
 	import LaRoute from '../mixins/LaRoute';
 	import IxEvent from '../mixins/IxEvent';
@@ -56,29 +56,42 @@
 				let checkedCount = value.length;
 				this.checkAll = checkedCount === this.tlds.length;
 				this.isIndeterminate = checkedCount > 0 && checkedCount < this.tlds.length;
-				this.queryDomains(this.getDomainList, this.checkedTlds);
+
+				this.$store.commit('setTlds', this.checkedTlds);
+
+				this.queryDomains(this.getDomainList);
+				// this.queryDomains(this.getDomainList, this.checkedTlds);
 			},
-			toggleAccordion(val) {},
-			getDomainList(tlds) {
-				$.busyLoadFull("show");
-				axios({
-					method: 'post',
-					url: laroute.route('customer.filter'),
-					data: {
-						tlds: tlds
-					}
-				}).then((response) => { 
-					$.busyLoadFull("hide"); 
-						IxEvent.fire('domain-list-changed', response.data.data);
-					}
-				)
+			toggleAll(val) {},
+			getDomainList() {
+
+            	this.$store.dispatch('domains');
+
+			// 	$.busyLoadFull("show");
+			// 	axios({
+			// 		method: 'post',
+			// 		url: laroute.route('customer.filter'),
+			// 		data: {
+			// 			tlds: tlds
+			// 		}
+			// 	}).then((response) => { 
+			// 		IxEvent.fire('domain-list-changed', response.data.data);
+			// 		$.busyLoadFull("hide"); 
+			// 		}
+			// 	)
 			}
+		}, 
+		computed:   {
+			...mapGetters({ 
+		  		tldOptions: 'tlds'
+			})
 		},
-		computed: {
-			tldOptions() {
-				return window.internetx.tldOptions;
-			}
-		},
+		// 	// tldOptions() {
+		// 	// 	// return window.internetx.tldOptions;
+		// 	// 	console.log('tlds',this.$store.getters.tlds);
+		// 	// 	return this.$store.getters.tlds;
+		// 	// }
+		// },
 		mounted() {
 			this.tlds = window.internetx.tldOptions;
 			this.checkedTlds = window.internetx.tldOptions;
