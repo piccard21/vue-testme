@@ -7,8 +7,6 @@
 	</el-input>
 </template>
 
-
-
 <script>
 	export default {
 		data() {
@@ -19,7 +17,7 @@
 		methods: {
 			filterDomain(text) {
 				this.$store.commit('setSearchText', text);
-				// console.info(this.$store.getters.searchText);
+            	this.$store.dispatch('domains'); 
 			}
 		} 
 	}

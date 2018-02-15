@@ -50,6 +50,9 @@
 			handleCheckAllChange(val) {
 				this.checkedTlds = val ? this.tldOptions : [];
 				this.isIndeterminate = false;
+
+				this.$store.commit('setTlds', this.checkedTlds);
+
 				this.queryDomains(this.getDomainList, this.checkedTlds);
 			},
 			handleCheckedTldsChange(value) {
@@ -59,38 +62,22 @@
 
 				this.$store.commit('setTlds', this.checkedTlds);
 
-				this.queryDomains(this.getDomainList);
-				// this.queryDomains(this.getDomainList, this.checkedTlds);
+				this.queryDomains(this.getDomainList); 
 			},
 			toggleAll(val) {},
-			getDomainList() {
-
-            	this.$store.dispatch('domains');
-
-			// 	$.busyLoadFull("show");
-			// 	axios({
-			// 		method: 'post',
-			// 		url: laroute.route('customer.filter'),
-			// 		data: {
-			// 			tlds: tlds
-			// 		}
-			// 	}).then((response) => { 
-			// 		IxEvent.fire('domain-list-changed', response.data.data);
-			// 		$.busyLoadFull("hide"); 
-			// 		}
-			// 	)
+			getDomainList() { 
+            	this.$store.dispatch('domains'); 
 			}
 		}, 
 		computed:   {
-			...mapGetters({ 
-		  		tldOptions: 'tlds'
-			})
+			// ...mapGetters({ 
+		 //  		tldOptions: 'tlds'
+			// })
+			tldOptions() {
+				return internetx.tldOptions;
+			}
 		},
-		// 	// tldOptions() {
-		// 	// 	// return window.internetx.tldOptions;
-		// 	// 	console.log('tlds',this.$store.getters.tlds);
-		// 	// 	return this.$store.getters.tlds;
-		// 	// }
+
 		// },
 		mounted() {
 			this.tlds = window.internetx.tldOptions;

@@ -32,14 +32,6 @@ export const store = new Vuex.Store({
     	}
     },
     actions: {
-        // register({ commit }, userId) {
-        //     setTimeout(() => {
-        //         commit('register', userId);
-        //     } ,1000);
-        // } 
-	    // tlds (context, tlds) {
-	    //   context.commit('setTlds', tlds)
-	    // } 
 	    domains (context, domains) {
             $.busyLoadFull("show"); 
             axios({

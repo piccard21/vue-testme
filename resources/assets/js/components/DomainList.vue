@@ -75,17 +75,11 @@
 		},
 		data() {
 			return {
-				// tableData: this.$store.getters.domainList,
-				// tableData: internetx.domainList,
 				loading: false
 			}
 		},
 		mounted() {
-			this.hasSelection(); 
-			// IxEvent.listen('domain-list-changed', (domains) => {
-			// 	console.info(domains);
-			// 	this.tableData = domains;
-			// }); 
+			this.hasSelection();
 		},
 		methods: {
 			hasSelection() {
